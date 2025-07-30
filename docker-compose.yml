@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: subscriptions-api
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    volumes:
+      - .:/src
+    command: ["./app"]
+
+  db:
+    container_name: postgres-db
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: mukhammedkaldybay
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  migrate:
+    image: migrate/migrate
+    depends_on:
+      - db
+    volumes:
+      - ./db/migrations:/migrations
+    entrypoint: [
+      "migrate",
+      "-path", "/migrations",
+      "-database", "postgres://postgres:1234@db:5432/postgres?sslmode=disable"
+    ]
+    command: ["up"]
+
+volumes:
+  postgres_data:

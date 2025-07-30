@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+  }
+
+  thead {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+</style>
+<body>
+<table>
+  <thead>Подписки</thead>
+  <tr>
+    <td>ID</td>
+    <td>Название</td>
+    <td>Цена</td>
+    <td>ID пользователя</td>
+    <td>Дата начало</td>
+  </tr>
+  {{range .}}
+  <tr>
+    <td>{{.ID}}</td>
+    <td>{{.ServiceName}}</td>
+    <td>{{.Price}}</td>
+    <td>{{.UserID}}</td>
+    <td>{{.StartDate}}</td>
+  </tr>
+
+  {{ end }}
+</table>
+</body>
+</html>
